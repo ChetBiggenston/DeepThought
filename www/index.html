@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Deep Thoughts</title>
+    <link rel="stylesheet" href="./css/index.css" />
+    <script src="https://code.jquery.com/jquery-1.11.2.min.js"></script>
+    <script src="https://code.jquery.com/mobile/1.4.5/jquery.mobile-1.4.5.min.js"></script>
+    <script src="cordova.js"></script>
+    <script src="js/indexform.js"></script>
+    <script src="http://ajax.googleapis.com/ajax/libs/angularjs/1.2.26/angular.min.js"></script>
+    <script language="javascript" type="text/javascript">
+        function playSound(soundfile) {
+            document.getElementById("dummy").innerHTML =
+                "<embed src=\"" + soundfile + "\" hidden=\"true\" autostart=\"true\" loop=\"false\" />";
+        }
+    </script>
+    <script type="text/javascript">
+        img1 = new Image()
+        img1.src = "./img/fartButton-up.png"
+        img2 = new Image()
+        img2.src = "./img/fartButton-down.png"
+    </script>
+</head>
+
+
+<body>
+    <span id="dummy"></span>
+
+    <!-- Start of first page: #one -->
+    <div data-role="page" id="one">
+
+        <div data-role="header">
+            <h1>Deep Thoughts</h1>
+        </div>
+        <!-- /header -->
+
+        <style>
+
+        </style>
+
+        <div id="container">
+            <div ng-app="" ng-controller="myController">
+                <br>
+                <br>
+                <p id=text>{{thought}}</p>
+                <br>
+                <img id="image" src="{{buttonImg}}" ng-click="DeepThought();" />
+                <br>
+                <br>
+                <br>
+            </div>
+
+            <script>
+                function myController($scope, $timeout) {
+                    var aFarts = ["./farts/fart01.wav", "./farts/fart02.wav", "./farts/fart03.wav", "./farts/fart04.wav", "./farts/fart05.wav", "./farts/fart06.wav", "./farts/fart07.wav", "./farts/fart08.wav", "./farts/fart09.wav", "./farts/fart10.wav", "./farts/fart11.wav", "./farts/fart12.wav", "./farts/fart13.wav"];
+                    var aThoughts = ["Hang in there!", "Don't worry!\nBe happy!", "Tacos Rock!", "Beers?", "Buy low,\nsell high!", "Pickles work.", "Cheese never\nhurt anyone!", "Croisants are just\ncrummy donuts.", "Never give in\nto 30% off.", "CheezeWhiz was a\nNazi invention.", "ALWAYS play Free Bird.", "Too many nugs.", "Coffee stains on\nyer butt.", "Call your mother.", "Cheap thrills > than no thrills.", "Question your elders.", "Question yourself. Thoroughly.", "You ARE the 11 herbs and spices."];
+
+                    $scope.fart = aFarts[Math.floor(Math.random() * aFarts.length)];
+                    $scope.thought = aThoughts[Math.floor(Math.random() * aThoughts.length)];
+                    $scope.buttonImg = "./img/fartButton-up.png";
+
+
+
+                    $scope.DeepThought = function () {
+                        $scope.buttonImg = "./img/fartButton-down.png";
+                        $scope.fart = aFarts[Math.floor(Math.random() * aFarts.length)];
+                        $scope.thought = aThoughts[Math.floor(Math.random() * aThoughts.length)];
+                        playSound($scope.fart);
+                        $timeout(function () {
+                            $scope.buttonImg = "./img/fartButton-up.png";
+                        }, 300);
+
+
+                    }
+
+                }
+            </script>
+
+
+        </div>
+
+
+    </div>
+    <!-- /page one -->
+
+
+    <!-- Start of second page: #two -->
+    <div data-role="page" id="two" data-theme="a">
+
+        <div data-role="header">
+            <h1>Two</h1>
+        </div>
+        <!-- /header -->
+        <div data-role="content">
+            <p>Thank-you for your purchase of <span id="confirmamount"></span>
+            </p>
+            <p><a href="#one" data-role="button">Show page "one"</a>
+            </p>
+        </div>
+
+
+    </div>
+    <!-- /page two -->
+
+</body>
+
+</html>
